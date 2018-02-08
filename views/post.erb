@@ -1,0 +1,60 @@
+<a href='/'>&lt; Overview</a>
+</br>
+</br>
+
+<table width='100%'>
+  <tr>
+    <td>
+      <h3> <%= @post[:title] %> </h3>
+      <a href='/posts/<%= @post[:id] %>/edit'> Edit</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      By: <b> <%= @post[:author] %> </b>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= @post[:content] %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      </br>
+      </br>
+    </td>
+  </tr>
+</table>
+
+</br>
+<b> Comments </b>
+</br>
+</br>
+
+Add a comment:
+</br>
+</br>
+<form action='/posts/<%= @post[:id] %>/new-comment' method='POST'>
+  <input type='text' name='comment_id' placeholder='id'\> </br>
+  <input type='hidden' name='post_id' value='<%= @post[:id] %>'>
+  <input type='comment_author' name='comment_author' placeholder='Author'\> </br>
+  <input type='comment_content' name='comment_content' placeholder='Content'\> </br>
+  <input type='submit' value='Save'\>
+</form>
+
+<table width='100%'>
+<% @post_comments.each do |comment| %>
+  <tr>
+    <td>
+      <b> <%= comment[:comment_author] %> says: </b> </br>
+      <%= comment[:comment_content] %> </br>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      </br>
+    </td>
+  </tr>
+<% end %>
+</table>

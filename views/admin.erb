@@ -1,0 +1,49 @@
+<a href='/'>&lt; Overview</a>
+</br>
+</br>
+
+<a href='/posts/new'>Add a new post</a>
+</br>
+</br>
+
+<h1>Posts</h1>
+</br>
+</br>
+
+<table width='100%'>
+<% @posts.each do |post| %>
+  <tr>
+    <td>
+      <b> <a href='/posts/<%= post[:id] %>'> <%= post[:title] %> </a> </b>
+      <form action='/admin/delete_post' method='POST'>
+        <input type='hidden' name='delete_post' value='<%= post[:id] %>'\>
+        <input type='submit' value='Delete post'\>
+      </form>
+      By: <b> <%= post[:author] %> </b>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      </br>
+      <u> Comments: </u>
+      </br>
+      <table width='100%'>
+      <% @post_comments = DB[:comments].where(:post_id => post[:id]) %>
+      <% @post_comments.each do |comment| %>
+        <tr>
+          <td>
+            <b> <%= comment[:comment_author] %> says: </b> </br>
+            <%= comment[:comment_content] %> </br>
+          <form action='/admin/delete_comment' method='POST'>
+            <input type='hidden' name='delete_comment' value='<%= comment[:comment_id] %>'\>
+            <input type='submit' value='Delete comment'\>
+          </form>
+          </td>
+        </tr>
+      <% end %>
+      </table>
+    </br>
+    </td>
+  </tr>
+<% end %>
+</table>
